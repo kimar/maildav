@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  maildav:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./config.yml:/etc/maildav/config.yml

@@ -1,11 +1,11 @@
 package maildav
 
 import (
+	"fmt"
 	"io"
 	"time"
-    "fmt"
 
-    "github.com/tarent/logrus"
+	"github.com/tarent/logrus"
 	errors "github.com/targodan/go-errors"
 	"gopkg.in/yaml.v2"
 )
@@ -40,6 +40,7 @@ type PollerConfig struct {
 	SourceName           string `yaml:"source"`
 	SourceConfig         *SourceConfig
 	SourceDirectories    []string `yaml:"sourceDirectories"`
+	SourceAddresses      []string `yaml:"sourceAddresses"`
 	DestinationName      string   `yaml:"destination"`
 	DestinationConfig    *DestinationConfig
 	DestinationDirectory string        `yaml:"destinationDirectory"`

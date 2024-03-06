@@ -165,6 +165,22 @@ func (p *Poller) parseMessage(raw *imap.Message, section *imap.BodySectionName) 
 		}
 	}
 
+	address := msg.Header.Get("From")
+	foundValidSourceAddress := len(p.config.SourceAddresses) == 0
+	for _, sourceAddress := range p.config.SourceAddresses {
+		logrus.Infof("Checking if \"%s\" is a valid source address.", address)
+		if sourceAddress == address {
+			foundValidSourceAddress = true
+			break
+		}
+	}
+
+	if !foundValidSourceAddress {
+		return nil, errors.Wrap("message from invalid source address", errors.New("message from invalid source address"))
+	} else {
+		logrus.Infof("Message from valid source address \"%s\".", address)
+	}
+
 	attachments := []*Attachment{}
 	if mr := msg.MultipartReader(); mr != nil {
 		for {

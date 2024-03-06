@@ -1,0 +1,24 @@
+sources:
+  - name: "my-source"
+    server: "mail.example.com"
+    port: 993
+    tls: true
+    username: "postbox@example.com"
+    password: "sup3rs3cre3t"
+
+destinations:
+  - name: "my-webdav"
+    baseURL: "https://cloud.example.com/remote.php/dav/files/USERNAME/"
+    username: "USERNAME"
+    password: "sup3rs3cret"
+
+pollers:
+  - source: "my-source"
+    sourceDirectories:
+      - INBOX
+    sourceAddresses:
+      - sender@example.com
+      - sender2@example.com
+    destination: my-webdav"
+    destinationDirectory: "Uploads"
+    timeout: "30s"
