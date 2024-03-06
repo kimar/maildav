@@ -51,8 +51,9 @@ func (u *Uploader) uploadAttachments(uploads map[string][]*Attachment) error {
 			if err != nil {
 				logrus.WithError(err).Errorf("Error uploading file \"%s\" to destination \"%s\".", at.Filename, cfg.Name)
 				errs = errors.NewMultiError(err, errs)
+			} else {
+				logrus.WithField("dest", cfg.Name).Infof("File \"%s\" successfully uploaded.", at.Filename)
 			}
-			logrus.WithField("dest", cfg.Name).Infof("File \"%s\" successfully uploaded.", at.Filename)
 		}
 	}
 	return errs
