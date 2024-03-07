@@ -2,6 +2,7 @@ package maildav
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"time"
@@ -206,6 +207,10 @@ func (p *Poller) parseMessage(raw *imap.Message, section *imap.BodySectionName) 
 	return attachments, nil
 }
 
+func (p *Poller) createFilename(original string) string {
+	return fmt.Sprintf("%d_%s", time.Now().Unix(), original)
+}
+
 func (p *Poller) parseMsgPart(part *message.Entity) (*Attachment, error) {
 	disp, params, err := part.Header.ContentDisposition()
 	if err != nil {
@@ -236,7 +241,7 @@ func (p *Poller) parseMsgPart(part *message.Entity) (*Attachment, error) {
 		}
 
 		attachment := &Attachment{
-			Filename: filename,
+			Filename: p.createFilename(filename),
 			Content:  content,
 			DestinationInfo: &DestinationInfo{
 				Config:    p.config.DestinationConfig,
