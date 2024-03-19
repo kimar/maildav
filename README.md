@@ -1,3 +1,7 @@
+# ARCHIVED
+
+## Please consider using https://github.com/kimar/imap2webdav
+
 # maildav
 
 Fork of [targodan/maildav](https://github.com/targodan/maildav).
